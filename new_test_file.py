@@ -1,6 +1,7 @@
 import easyocr
 import streamlit as st
 import pandas as pd
+from PIL import Image
 from new_source import *
 from sql_source import *
 import pymysql
@@ -43,15 +44,15 @@ if opt == "Modifiy":
     
     if st.session_state.clicked:
         check_dit["name"]= st.text_input('Name', di.get("name"))
-        check_dit["job"] = st.text_input('Job', di.get("job"))
+        check_dit["designation"] = st.text_input('designation', di.get("designation"))
         check_dit["mail"]= st.text_input('Mail', di.get("mail"))
         check_dit["web"] = st.text_input('Web', di.get("web"))
         check_dit["num1"]  = st.text_input('Num1', di.get("num1"))
         check_dit["num2"]  = st.text_input('Num2', di.get("num2"))
-        check_dit["address_1"] = st.text_input('city', di.get("address_1"))
-        check_dit["address_2"]= st.text_input('name 2', di.get("address_2"))
-        check_dit["address_3"]= st.text_input('State', di.get("address_3"))
-        check_dit["address_4"]= st.text_input('State', di.get("address_4")) 
+        check_dit["area_city"] = st.text_input('area,city', di.get("area_city"))
+        check_dit["district"]= st.text_input('district', di.get("district"))
+        check_dit["state_pincode"]= st.text_input('State,pincode', di.get("state_pincode"))
+        check_dit["company_name"]= st.text_input('company name', di.get("company_name")) 
         
         if st.button("upload"):
             output = dictionary_compare(di, check_dit)
@@ -63,7 +64,10 @@ if opt == "Modifiy":
 if opt == "Upload":
     st.session_state.clicked = False
     uploaded_file = st.file_uploader("Choose a file")
-
+    
+    if uploaded_file is not None:
+        st.image(uploaded_file, caption='Enter any caption here')
+        st.write("image working")
     if uploaded_file is not None:
         bytes_data = uploaded_file.getvalue()
         reader = easyocr.Reader(['en'])
@@ -72,15 +76,15 @@ if opt == "Upload":
 
 
         database_dit["name"]= st.text_input('Name', dic.get("name"))
-        database_dit["job"] = st.text_input('Job', dic.get("job"))
+        database_dit["job"] = st.text_input('designation', dic.get("job"))
         database_dit["mail"]= st.text_input('Mail', dic.get("mail"))
         database_dit["web"] = st.text_input('Web', dic.get("web"))
         database_dit["num1"]  = st.text_input('Num1', dic.get("num1"))
         database_dit["num2"]  = st.text_input('Num2', dic.get("num2"))
-        database_dit["address_1"] = st.text_input('city', dic.get("address_1"))
-        database_dit["address_2"]= st.text_input('name 2', dic.get("address_2"))
-        database_dit["address_3"]= st.text_input('State', dic.get("address_3"))
-        database_dit["address_4"]= st.text_input('State', dic.get("address_4"))
+        database_dit["address_1"] = st.text_input('area,city', dic.get("address_1"))
+        database_dit["address_2"]= st.text_input('district', dic.get("address_2"))
+        database_dit["address_3"]= st.text_input('State,pincode', dic.get("address_3"))
+        database_dit["address_4"]= st.text_input('company name', dic.get("address_4"))
 
 
         if st.button('upload'):
