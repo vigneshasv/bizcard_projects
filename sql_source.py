@@ -18,22 +18,22 @@ def sql_create_table(table):
     mycursor = mydb.cursor()
 
     mycursor.execute(f"CREATE TABLE if not exists {table} (name VARCHAR(50), \
-                                            job VARCHAR(50), \
+                                            designation VARCHAR(50), \
                                             mail VARCHAR(50), \
                                             web VARCHAR(50), \
                                             num1 TEXT(50), \
                                             num2 TEXT(50), \
-                                            address_1 VARCHAR(50),\
-                                            address_2 VARCHAR(50), \
-                                            address_3 VARCHAR(50), \
-                                            address_4 VARCHAR(50), \
+                                            area_city VARCHAR(50),\
+                                            district VARCHAR(50), \
+                                            state_pincode VARCHAR(50), \
+                                            company_name VARCHAR(50), \
                                             person_id int PRIMARY KEY AUTO_INCREMENT)")
         
     
 
 def sql_insert(table, dic):
     mycursor = mydb.cursor()
-    mycursor.execute(f"INSERT INTO {table} (name, job, mail, web, num1, num2, address_1, address_2, address_3, address_4) \
+    mycursor.execute(f"INSERT INTO {table} (name, designation, mail, web, num1, num2,area_city,district,state_pincode, company_name) \
                                                  VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"\
                                                  ,(dic.get("name"),dic.get("job"),dic.get("mail"),dic.get("web"),dic.get("num1")\
                                                      ,dic.get("num2"),dic.get("address_1"),dic.get("address_2"),dic.get("address_3"),dic.get("address_4")))
